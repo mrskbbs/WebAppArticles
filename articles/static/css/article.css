@@ -1,0 +1,39 @@
+body{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 2.5em;
+}
+header{
+    display: flex;
+    flex-direction: column;
+}
+header, #article{
+    padding-left: 5%;
+    padding-right: 5%;
+}
+#article{
+    flex-grow: 1;
+}
+header > a{
+    grid-area: a;
+    display: flex;
+    flex-direction: row;
+    gap: 1.5em;
+    justify-items: center;
+    align-items: center;
+}
+header > a > img{
+    height: 4em;
+    width: 4em;
+    border-radius: 4em;
+    background-size: contain;
+}
+header > h1{
+    grid-area: t;
+    font-size: 50pt;
+}
+header > p{
+    grid-area: d;
+}

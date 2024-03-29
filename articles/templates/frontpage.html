@@ -1,0 +1,42 @@
+{% load static %}
+<link rel = "stylesheet" href = "{% static 'css/universal.css' %}">
+<link rel = "stylesheet" href = "{% static 'css/frontpage.css' %}">
+
+<!DOCTYPE html>
+<html>
+    <body>
+        <header>
+            <!-- Header block -->
+            <a href = "{% url 'users:login' %}">Log in</a>
+            <a href = "{% url 'users:signup' %}"> Sign up</a>
+            <h1>Codeticles</h1>
+        </header>   
+
+        <h1>Trending</h1>
+        <div class = "carousel" id = "trending">
+            <!-- Posts block -->
+            <!-- {% for post in trending %}
+                <div class = "article">
+                    <h1><a href = "{% url 'articles:article' post.url %}">{{post.title}}</a></h1>
+                    <a href="{% url 'articles:profile' post.authorUsername %}">
+                        <p>Author: {{post.authorName}}</p> 
+                    </a>
+                </div>
+            {% endfor %} -->
+        </div>
+
+        <h1>Popular</h1>
+        <div class = "carousel" id = "fresh">
+            <!-- Posts block -->
+        </div>
+
+        <h1>Most liked this week</h1>
+        <div class = "carousel" id = "liked">
+            <!-- Posts block -->
+        </div>
+
+        <footer>
+            <!-- Footer block -->
+        </footer>
+    </body>
+</html>

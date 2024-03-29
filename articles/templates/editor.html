@@ -1,0 +1,33 @@
+{% load static %}
+<link rel = "stylesheet" href = "{% static 'css/universal.css' %}">
+<link rel = "stylesheet" href = "{% static 'css/editor.css' %}">
+
+<!DOCTYPE html>
+<html>
+    <body>
+        <header>
+            <a id = "back" href = "{% url 'frontpage' %}"> Back </a>
+            <textarea id = "title"></textarea>
+            <div id = "savebar">
+                <input type = "checkbox" id = "published">
+                <label for = "published">Published</label>
+                <button hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
+                        hx-post = "{% url 'articles:edit' id %}"
+                        hx-vals = 'js:{"packet": constructPacket()}'
+                        hx-trigger = "click"
+                        hx-target= "#status"
+                        >
+                    Save
+                </button>
+                <p id = "status"></p>
+            </div>
+        </header>
+        <div id = "content"></div>
+        <div id = "navbar">
+            <button onclick = "titleSpawn();">Add title</button>
+            <button onclick = "paragrapghSpawn();">Add paragraph</button>
+        </div>        
+    </body>
+    <script src = "{% static 'js/editor.js' %}"></script>
+    <script src = "{% static 'js/htmx.min.js' %}"></script>
+</html>
