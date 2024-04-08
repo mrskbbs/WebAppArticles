@@ -3,8 +3,8 @@ from .views import *
 
 app_name = 'articles'
 urlpatterns = [
-    path('<int:id>', article, name = 'article'),
-    path('<int:id>/create', create, name = 'create'),
-    path('<int:id>/delete', delete, name = 'delete'),
-    path('<int:id>/edit', edit, name = 'edit'),
+    path('<int:id>', articleView, name = 'article'),
+    path('create', createView, name = 'create'),
+    path('<int:id>/delete', deleteView, name = 'delete'),
+    path('<int:id>/edit', editView, name = 'edit'),
 ]

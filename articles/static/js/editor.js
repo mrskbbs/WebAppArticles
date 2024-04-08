@@ -24,6 +24,7 @@ function constructPacket(){
         "blocks": blocks,
         "published": published,
     };
+    console.log(packet);
     return packet;
 }
 
@@ -60,5 +61,3 @@ function paragrapghSpawn(){
 
     div.appendChild(par);
 }
-
-titleSpawn();

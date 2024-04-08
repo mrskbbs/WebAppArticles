@@ -1,26 +1,36 @@
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.urls import reverse
 from django.utils import timezone
 from .models import Article
 from WebAppArticles.misc import htmlBuilder
 import json
 
 # Create your views here.
-def article(request, id):
+def articleView(request, id):
     return render(request, 'article.html')
 
 #http request require
 #user auth require
-def create(request, id):
-    ...
-    
+def createView(request):
+    article = Article.objects.create(
+        title = "Sample Title",
+        author = request.user,
+        published = False,
+        date = timezone.now(),
+        content = [[{"type": "h1", "content" : "Sample"}]],
+        likes = 0
+    )
+    article.save()
+    return redirect('articles:edit', id = article.pk)
+
 #http request require
 #user auth require
-def delete(request, id):
+def deleteView(request, id):
     ...
 
 #user auth require
-def edit(request, id):
+def editView(request, id):
     a = Article.objects.get(pk = id)
     
     if request.POST:
@@ -31,6 +41,9 @@ def edit(request, id):
             a.title = packet["title"]
             a.content = packet["blocks"]
             a.published = packet["published"]
+            if a.published:
+                a.date = timezone.now()
+            a.save()
             return HttpResponse(status)
 
         return HttpResponse("Error occured!")
@@ -38,6 +51,7 @@ def edit(request, id):
     else:
         context = {
             "id": id,
+            "article": a,
             "content": htmlBuilder(
                 editor = True,
                 blocks = a.content,
@@ -46,5 +60,5 @@ def edit(request, id):
         return render(request, 'editor.html', context = context)
 
 
-def frontpage(request):
+def frontpageView(request):
     return render(request, 'frontpage.html')

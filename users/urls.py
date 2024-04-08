@@ -3,7 +3,8 @@ from .views import *
 
 app_name = 'users'
 urlpatterns = [
-    path("<int:id>", profile, name = "profile"),
-    path("login", login, name = "login"),
-    path("signup", signup, name = "signup"),
+    path("<int:pk>", profileView, name = "profile"),
+    path("login", loginView, name = "login"),
+    path("logout", logoutView, name = "logout"),
+    path("signup", signupView, name = "signup"),
 ]

@@ -1,2 +1,3 @@
 WebAppArticles/settings.py
 /api
+db.sqlite3

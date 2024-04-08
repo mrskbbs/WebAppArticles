@@ -1,5 +1,5 @@
 from django.db import models
-from users.models import User
+from django.contrib.auth.models import User
 # Create your models here.
 
 class Article(models.Model):
@@ -12,5 +12,3 @@ class Article(models.Model):
 
     def __str__(self):
         return f"Article: {self.title}\nID: {self.pk}\nDate: {self.date}\nLikes: {self.likes}\n\n"
-    # from articles.models import Article
-    # a = Article(title = "Hello title", content = "<h1>Big thingy</h1>", likes = 228)

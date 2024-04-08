@@ -8,7 +8,15 @@
         <header>
             <!-- Header block -->
         </header>
-        <div id = "profile"></div>
+        <div id = "profile">
+            <h1>{{profile.get_username}}</h1>
+            <p>Total likes: {{likes}}</p>
+            {% if profile == user %}
+                <a href = "{% url 'articles:create' %}">
+                    <button>Create article</button>
+                </a>
+            {% endif %}
+        </div>
         <h1>Articles</h1>
         <div id = "articles">
             <!-- Posts block -->
@@ -21,4 +29,5 @@
             <img src="" alt="Telegram">
         </footer>
     </body>
+    <script src = "{% static 'js/htmx.min.js' %}"></script>
 </html>
