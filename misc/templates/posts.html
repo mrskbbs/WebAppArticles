@@ -1,0 +1,8 @@
+{% for post in posts %}
+    <div class = "article">
+        <h1><a href = "{% url 'articles:article' post.id %}">{{post.title}}</a></h1>
+        <a href="{% url 'users:profile' post.author.id %}">
+            <p>Author: {{post.author.username}}</p> 
+        </a>
+    </div>
+{% endfor %}

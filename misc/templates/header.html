@@ -1,0 +1,15 @@
+<header>
+    {% if not user.is_authenticated %}
+        <a href = "{% url 'users:signup' %}"> Sign up</a>
+    {% else %}
+        <a href = "{% url 'users:logout' %}">Log out</a>
+    {% endif %}
+    
+    <h1>Codeticles</h1>
+    
+    {% if user.is_authenticated %}        
+        <a href = "{% url 'users:profile' user.id %}">{{user.get_username}}</a>
+    {% else %}
+        <a href = "{% url 'users:login' %}">Log in</a>
+    {% endif %}
+</header>

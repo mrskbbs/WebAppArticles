@@ -5,47 +5,20 @@
 <!DOCTYPE html>
 <html>
     <body>
-        <header>
-            <!-- Header block -->
-            {% if not user.is_authenticated %}
-                <a href = "{% url 'users:signup' %}"> Sign up</a>
-            {% else %}
-                <a href = "{% url 'users:logout' %}">Log out</a>
-            {% endif %}
+        <!-- Header block -->
+        {% include 'header.html'%}
 
-            <h1>Codeticles</h1>
-
-            {% if user.is_authenticated %}        
-                <a href = "{% url 'users:profile' user.id %}">{{user.get_username}}</a>
-            {% else %}
-                <a href = "{% url 'users:login' %}">Log in</a>
-            {% endif %}
-        </header>
         <h1>Trending</h1>
         <div class = "carousel" id = "trending">
-            <!-- Posts block -->
-            <!-- {% for post in trending %}
-                <div class = "article">
-                    <h1><a href = "{% url 'articles:article' post.url %}">{{post.title}}</a></h1>
-                    <a href="{% url 'articles:profile' post.authorUsername %}">
-                        <p>Author: {{post.authorName}}</p> 
-                    </a>
-                </div>
-            {% endfor %} -->
-        </div>
-
-        <h1>Popular</h1>
-        <div class = "carousel" id = "fresh">
-            <!-- Posts block -->
+            {% include 'posts.html' with posts=trending only %}
         </div>
 
         <h1>Most liked this week</h1>
         <div class = "carousel" id = "liked">
-            <!-- Posts block -->
+            {% include 'posts.html' with posts=liked only %}
         </div>
 
-        <footer>
-            <!-- Footer block -->
-        </footer>
+        <!-- Footer block -->
+        {% include 'footer.html' %}
     </body>
 </html>

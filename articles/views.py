@@ -61,4 +61,9 @@ def editView(request, id):
 
 
 def frontpageView(request):
-    return render(request, 'frontpage.html')
+    a = Article.objects.all()
+    context = {
+        "trending": a,
+        "liked": a,
+    }
+    return render(request, 'frontpage.html', context)

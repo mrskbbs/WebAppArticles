@@ -5,9 +5,9 @@
 <!DOCTYPE html>
 <html>
     <body>
-        <header>
-            <!-- Header block -->
-        </header>
+        <!-- Header block -->
+        {% include 'header.html' %}
+
         <div id = "profile">
             <h1>{{profile.get_username}}</h1>
             <p>Total likes: {{likes}}</p>
@@ -17,17 +17,15 @@
                 </a>
             {% endif %}
         </div>
+
+
         <h1>Articles</h1>
         <div id = "articles">
-            <!-- Posts block -->
+            {% include 'posts.html' with posts=profile.article_set.all %}
         </div>
-        <footer>
-            <!-- Footer block -->
-            <p>Codeticles</p>
-            <img src="" alt="Github">
-            <img src="" alt="VK">
-            <img src="" alt="Telegram">
-        </footer>
+
+
+        <!-- Footer block -->
+        {% include 'footer.html' %}
     </body>
-    <script src = "{% static 'js/htmx.min.js' %}"></script>
 </html>
