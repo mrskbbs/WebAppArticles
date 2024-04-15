@@ -7,15 +7,18 @@
     <body>
         <!-- Header block -->
         {% include 'header.html'%}
-
-        <h1>Trending</h1>
-        <div class = "carousel" id = "trending">
-            {% include 'posts.html' with posts=trending only %}
-        </div>
-
-        <h1>Most liked this week</h1>
-        <div class = "carousel" id = "liked">
-            {% include 'posts.html' with posts=liked only %}
+        
+        <!-- Carousels -->
+        <div>
+            <h1>Trending</h1>
+            <div class = "carousel" id = "trending">
+                {% include 'posts.html' with posts=trending %}
+            </div>
+            
+            <h1>Most liked this week</h1>
+            <div class = "carousel" id = "liked">
+                {% include 'posts.html' with posts=liked %}
+            </div>
         </div>
 
         <!-- Footer block -->

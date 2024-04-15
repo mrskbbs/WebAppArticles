@@ -1,3 +1,5 @@
+from django.shortcuts import resolve_url
+
 def htmlBuilder(editor: bool, blocks: list) -> str:
     html: str = ""
 
@@ -25,3 +27,16 @@ def htmlBuilder(editor: bool, blocks: list) -> str:
 # {'packet': ['{"title":"dsfds",
 # "blocks":
 #       [[{"type":"h1","content":"sdffsdfsdfs"},{"type":"p","content":"sdfsdfsd"}]]
+
+def logout_required(function = None, redirect_url: str = None):
+    def decorator():
+        if function is None:
+            raise Exception
+        
+        url = resolve_url(redirect_url)
+
+        if url is None:
+            raise Exception
+
+        
+    return decorator

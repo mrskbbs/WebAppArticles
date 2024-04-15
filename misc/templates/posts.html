@@ -4,5 +4,8 @@
         <a href="{% url 'users:profile' post.author.id %}">
             <p>Author: {{post.author.username}}</p> 
         </a>
+        {% if user == post.author %}
+            <a href = "{% url 'articles:edit' post.id %}"><button>Edit</button></a>
+        {% endif %}
     </div>
 {% endfor %}

@@ -1,14 +1,19 @@
-from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from django.urls import reverse
-from django.utils import timezone
-from .models import Article
 from WebAppArticles.misc import htmlBuilder
+from django.http import HttpResponse
+from django.utils import timezone
+from django.urls import reverse
+from .models import Article
 import json
 
 # Create your views here.
 def articleView(request, id):
-    return render(request, 'article.html')
+    a = Article.objects.get(id = id)
+    context = {
+        "article": a,
+        "content": htmlBuilder(False, a.content)
+    }
+    return render(request, 'article.html', context)
 
 #http request require
 #user auth require

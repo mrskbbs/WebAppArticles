@@ -7,14 +7,14 @@
     <body>
         <a id = "back" href = "{% url 'frontpage' %}"> Back to frontpage </a>
         <header>
-            <h1></h1>
-            <a href="">
-                <p>Author: </p> 
-                <!-- <p>Posted on {{ article.published|date:'d F Y' }}</p> -->
-            </a>
+            <h1>{{article.title}}</h1>
+            <div>
+                <p>Author: <a href="{% url 'users:profile' article.author.id %}">{{article.author.username}}</a></p> 
+                <p>Posted on {{ article.published|date:'d F Y' }}</p>
+            </div>
         </header>
         <div id = "article">
-            <!-- article inner html -->
+            {{content|safe}}
         </div>
         <!-- Footer block -->
         {% include 'footer.html' %}

@@ -1,7 +1,10 @@
 from django.shortcuts import redirect, render, HttpResponse
 from articles.models import Article
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import login, logout
+from django.contrib.auth.decorators import login_required
+from WebAppArticles.misc import logout_required
 from django.urls import reverse
 
 def profileView(request, pk):
@@ -23,38 +26,38 @@ def profileView(request, pk):
     return HttpResponse("There isn't such user")
 
 def loginView(request):
+    form = AuthenticationForm(None, data = request.POST)
+    context = {
+        "form": form,
+    }
+
     if hasattr(request, "POST") and request.POST != {}:
-        user = authenticate(
-            username = request.POST["username"],
-            password = request.POST["password"],
-        )
-        if user:
-            print(user)
-            login(request, user)
+        if form.is_valid():        
+            login(request, form.get_user())
             return redirect(reverse("frontpage"))
 
-        return HttpResponse("There is not such user")
+    return render(request, 'login.html', context)
 
-    return render(request, 'login.html')
-
+@login_required(login_url = "users:signup")
 def logoutView(request):
-    if request.user.is_authenticated:
-        logout(request)
+    logout(request)
     return redirect(reverse("frontpage"))
 
-# If not signed in
+# Write the decorators
+# @logout_required(redirect_url = "frontpage")
 def signupView(request):
-    
+    form = UserCreationForm(request.POST or None)
+    context = {
+        "form": form,
+    }
     if hasattr(request, "POST") and request.POST != {}:
-        user = User.objects.create_user(
-            username = request.POST["username"],
-            password = request.POST["password"],
-        )
-        user.save()
+        if form.is_valid():
+            user = form.save()
+            user.is_active = True
+            user.save()
+            login(request, user)
 
-        login(request, user)
+            return redirect(reverse("frontpage"))
 
-        return redirect(reverse("frontpage"))
-
-    return render(request, 'signup.html')
+    return render(request, 'signup.html', context)
 
