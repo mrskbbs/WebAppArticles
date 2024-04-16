@@ -2,6 +2,15 @@ html, body{
     margin: 0em;
     padding: 0em;
 }
+body{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    gap: 3em;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
 header{
     width: 100%;
     display: flex;

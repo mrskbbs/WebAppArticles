@@ -6,6 +6,8 @@
         </a>
         {% if user == post.author %}
             <a href = "{% url 'articles:edit' post.id %}"><button>Edit</button></a>
+            <a href = "{% url 'articles:delete' post.id %}"><button>Delete</button></a>
+            </button>
         {% endif %}
     </div>
 {% endfor %}

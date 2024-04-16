@@ -15,13 +15,21 @@
                     <input type = "checkbox" id = "published">
                 {% endif %}
                 <label for = "published">Published</label>
-                <button hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
-                        hx-post = "{% url 'articles:edit' id %}"
-                        hx-vals = 'js:{"packet": constructPacket()}'
-                        hx-trigger = "click"
-                        hx-target= "#status"
-                        >
+                <button
+                    hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
+                    hx-post = "{% url 'articles:edit' article.id %}"
+                    hx-vals = 'js:{"packet": constructPacket()}'
+                    hx-trigger = "click"
+                    hx-target= "#status"
+                >
                     Save
+                </button>
+                <button 
+                    hx-headers = '{"X-CSRFToken": "{{ csrf_token }}"}'
+                    hx-post = "{% url 'articles:delete' article.id %}"
+                    hx-trigger = "click"    
+                >
+                    Delete
                 </button>
                 <p id = "status"></p>
             </div>

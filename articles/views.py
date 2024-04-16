@@ -1,22 +1,25 @@
+from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_POST, require_GET
 from django.shortcuts import render, redirect
 from WebAppArticles.misc import htmlBuilder
 from django.http import HttpResponse
 from django.utils import timezone
-from django.urls import reverse
 from .models import Article
+from WebAppArticles.misc import user_isauthor
 import json
 
-# Create your views here.
-def articleView(request, id):
-    a = Article.objects.get(id = id)
+
+def articleView(request, pk):
+    a = Article.objects.get(id = pk)
     context = {
         "article": a,
         "content": htmlBuilder(False, a.content)
     }
     return render(request, 'article.html', context)
 
-#http request require
-#user auth require
+
+@require_GET
+@login_required(login_url = "users:signup")
 def createView(request):
     article = Article.objects.create(
         title = "Sample Title",
@@ -27,16 +30,22 @@ def createView(request):
         likes = 0
     )
     article.save()
-    return redirect('articles:edit', id = article.pk)
+    return redirect('articles:edit', pk = article.pk)
 
-#http request require
-#user auth require
-def deleteView(request, id):
-    ...
 
-#user auth require
-def editView(request, id):
-    a = Article.objects.get(pk = id)
+@require_GET
+@user_isauthor(redirect_url = "frontpage")
+@login_required(login_url = "users:signup")
+def deleteView(request, pk):
+    article = Article.objects.get(id = pk)
+    author_id = article.author.id
+    article.delete()
+    return redirect('users:profile', id = author_id)
+
+@user_isauthor(redirect_url = "frontpage")
+@login_required(login_url = "users:signup")
+def editView(request, pk):
+    a = Article.objects.get(id = pk)
     
     if request.POST:
         packet = json.loads(request.POST['packet'])
@@ -50,12 +59,12 @@ def editView(request, id):
                 a.date = timezone.now()
             a.save()
             return HttpResponse(status)
+        
+        return HttpResponse("Error 404")
 
-        return HttpResponse("Error occured!")
     
     else:
         context = {
-            "id": id,
             "article": a,
             "content": htmlBuilder(
                 editor = True,

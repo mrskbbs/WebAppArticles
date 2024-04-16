@@ -1,11 +1,4 @@
 body{
-    min-height: 100%;
-    width: 100%;
-    display: flex;
-    gap: 3em;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
     overflow-x: hidden;
 }
 body > h1{
@@ -20,29 +13,6 @@ body > h1{
     display: flex;
     flex-direction: row;
     gap: 2em;
-}
-.article{
-    display: flex;
-    flex-direction: column;
-    gap: 1.5em;
-    padding: 2em;
-}
-.article > a{
-    display: flex;
-    flex-direction: row;
-    gap: 1.5em;
-    justify-items: center;
-    align-items: center;
-}
-.article > a > img{
-    height: 4em;
-    width: 4em;
-    border-radius: 4em;
-    background-size: contain;
-}
-.article > h1{
-    width: 20em;
-    text-wrap: wrap;
 }
 #welcome{
     height: 60%;

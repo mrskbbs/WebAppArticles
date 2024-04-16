@@ -5,19 +5,20 @@
 <!DOCTYPE html>
 <html>
     <body>
-        <a id = "back" href = "{% url 'frontpage' %}"> Back to frontpage </a>
-        <header>
+        {% include 'header.html' %}
+        <div id = "header">
             <h1>{{article.title}}</h1>
             <div>
                 <p>Author: <a href="{% url 'users:profile' article.author.id %}">{{article.author.username}}</a></p> 
                 <p>Posted on {{ article.published|date:'d F Y' }}</p>
             </div>
-        </header>
+        </div>
+        
         <div id = "article">
             {{content|safe}}
         </div>
+        
         <!-- Footer block -->
         {% include 'footer.html' %}
     </body>
-    <script src="{% static 'js/htmx.min.js'%}"></script>
 </html>

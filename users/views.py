@@ -7,8 +7,8 @@ from django.contrib.auth.decorators import login_required
 from WebAppArticles.misc import logout_required
 from django.urls import reverse
 
-def profileView(request, pk):
-    profile = User.objects.get(pk = pk)
+def profileView(request, id):
+    profile = User.objects.get(id = id)
     if profile:
         
         user_articles = Article.objects.filter(author = profile)
@@ -25,6 +25,7 @@ def profileView(request, pk):
         return render(request, "profile.html", context)
     return HttpResponse("There isn't such user")
 
+@logout_required(redirect_url = "frontpage")
 def loginView(request):
     form = AuthenticationForm(None, data = request.POST)
     context = {
@@ -43,8 +44,7 @@ def logoutView(request):
     logout(request)
     return redirect(reverse("frontpage"))
 
-# Write the decorators
-# @logout_required(redirect_url = "frontpage")
+@logout_required(redirect_url = "frontpage")
 def signupView(request):
     form = UserCreationForm(request.POST or None)
     context = {

@@ -5,18 +5,41 @@ body{
     flex-direction: column;
     gap: 2.5em;
 }
-header{
+.article{
+    display: flex;
+    flex-direction: column;
+    gap: 1.5em;
+    padding: 2em;
+}
+.article > a{
+    display: flex;
+    flex-direction: row;
+    gap: 1.5em;
+    justify-items: center;
+    align-items: center;
+}
+.article > a > img{
+    height: 4em;
+    width: 4em;
+    border-radius: 4em;
+    background-size: contain;
+}
+.article > h1{
+    width: 20em;
+    text-wrap: wrap;
+}
+#header{
     display: flex;
     flex-direction: column;
 }
-header, #article{
+#article{
     padding-left: 5%;
     padding-right: 5%;
 }
 #article{
     flex-grow: 1;
 }
-header > a{
+#header > a{
     grid-area: a;
     display: flex;
     flex-direction: row;
@@ -24,16 +47,16 @@ header > a{
     justify-items: center;
     align-items: center;
 }
-header > a > img{
+#header > a > img{
     height: 4em;
     width: 4em;
     border-radius: 4em;
     background-size: contain;
 }
-header > h1{
+#header > h1{
     grid-area: t;
     font-size: 50pt;
 }
-header > p{
+#header > p{
     grid-area: d;
 }
