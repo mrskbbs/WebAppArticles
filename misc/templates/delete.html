@@ -1,0 +1,4 @@
+<form action = "{% url 'articles:delete' article.id %}" method = "post">
+    {% csrf_token %}
+    <button>Delete</button>
+</form>

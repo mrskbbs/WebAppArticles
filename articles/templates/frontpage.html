@@ -9,15 +9,15 @@
         {% include 'header.html'%}
         
         <!-- Carousels -->
-        <div>
+        <div id = "carousels">
             <h1>Trending</h1>
             <div class = "carousel" id = "trending">
-                {% include 'posts.html' with posts=trending %}
+                {% include 'posts.html' with articles=trending %}
             </div>
             
             <h1>Most liked this week</h1>
             <div class = "carousel" id = "liked">
-                {% include 'posts.html' with posts=liked %}
+                {% include 'posts.html' with articles=liked %}
             </div>
         </div>
 

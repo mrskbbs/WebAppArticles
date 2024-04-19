@@ -10,11 +10,14 @@ import json
 
 
 def articleView(request, pk):
-    a = Article.objects.get(id = pk)
+    article = Article.objects.get(id = pk)
     context = {
-        "article": a,
-        "content": htmlBuilder(False, a.content)
+        "article": article,
+        "content": htmlBuilder(False, article.content),
     }
+    if request.user:
+        context["liked"] = article.users_liked.contains(request.user)
+
     return render(request, 'article.html', context)
 
 
@@ -33,7 +36,7 @@ def createView(request):
     return redirect('articles:edit', pk = article.pk)
 
 
-@require_GET
+@require_POST
 @user_isauthor(redirect_url = "frontpage")
 @login_required(login_url = "users:signup")
 def deleteView(request, pk):
@@ -42,14 +45,25 @@ def deleteView(request, pk):
     article.delete()
     return redirect('users:profile', id = author_id)
 
+@require_POST
+@login_required(login_url = "users:signup")
+def likeView(request, pk):
+    article = Article.objects.get(id = pk)
+    if article.users_liked.contains(request.user):
+        article.users_liked.remove(request.user)
+    else:
+        article.users_liked.add(request.user)
+
+    return redirect('articles:article', pk = pk)
+
+
 @user_isauthor(redirect_url = "frontpage")
 @login_required(login_url = "users:signup")
 def editView(request, pk):
     a = Article.objects.get(id = pk)
     
-    if request.POST:
-        packet = json.loads(request.POST['packet'])
-        status = f"Last saved on {timezone.now().strftime("%H:%M")}"
+    if request.method == "POST":
+        packet = json.loads(request.body.decode("utf-8"))
 
         if a:
             a.title = packet["title"]
@@ -58,10 +72,9 @@ def editView(request, pk):
             if a.published:
                 a.date = timezone.now()
             a.save()
-            return HttpResponse(status)
         
         return HttpResponse("Error 404")
-
+    
     
     else:
         context = {

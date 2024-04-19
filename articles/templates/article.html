@@ -1,6 +1,5 @@
 {% load static %}
 <link rel = "stylesheet" href = "{% static 'css/universal.css' %}">
-<link rel = "stylesheet" href = "{% static 'css/article.css' %}">
 
 <!DOCTYPE html>
 <html>
@@ -11,6 +10,16 @@
             <div>
                 <p>Author: <a href="{% url 'users:profile' article.author.id %}">{{article.author.username}}</a></p> 
                 <p>Posted on {{ article.published|date:'d F Y' }}</p>
+            </div>
+            {% if request.user == article.author %}
+                <div>
+                    {% include 'edit.html' %}
+                    {% include 'delete.html' %}
+                </div>
+            {% endif %}
+            <div>
+                <p>Likes: {{article.countLikes}}</p>
+                {% include 'like.html'%}
             </div>
         </div>
         

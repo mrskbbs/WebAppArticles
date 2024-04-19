@@ -1,5 +1,5 @@
 div = document.getElementsByClassName("block")[document.getElementsByClassName("block").length - 1];
-function constructPacket(){
+async function sendPacket(url){
     let title = document.querySelector("#title").value;
     let published = document.querySelector("#published").checked;
     let blocks = [];
@@ -24,8 +24,47 @@ function constructPacket(){
         "blocks": blocks,
         "published": published,
     };
-    console.log(packet);
-    return packet;
+    packet = JSON.stringify(packet);
+
+    let csrftoken = getCookie('csrftoken');
+
+    const postPacket = await fetch(
+        url,
+        {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json',
+                "X-CSRFToken": csrftoken,
+            },
+            body: packet,
+        }
+    );
+    let pel = document.querySelector("#status");
+    
+    if(postPacket.ok){
+        pel.innerHTML = "Saved succesfully";
+    }else{
+        pel.innerHTML = "There was an error, data isn't saved";
+    }
+
+}
+
+function getCookie(name){
+    var cookie = null;
+    if(document.cookie && document.cookie == ''){
+        return null;
+    }
+    var cookies = document.cookie.split(';');
+    for(var el of cookies){
+        el = el.trim();
+        if(el.substring(0, name.length + 1) === (name + '=')){
+            cookie = decodeURIComponent(el.substring(name.length + 1)); 
+            break;
+        }
+    }
+
+    return cookie;
 }
 
 function elelmentBuilder(name, params){

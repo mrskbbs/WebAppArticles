@@ -3,20 +3,29 @@ html, body{
     padding: 0em;
 }
 body{
-    height: 100%;
     width: 100%;
-    display: flex;
     gap: 3em;
+    display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
 }
 header{
     width: 100%;
+    display: grid;
+    grid-template-areas:
+    "l t r";
+    justify-content: space-around;
+    align-items: center;
+
+}
+header > #user{
+    grid-area: r;
     display: flex;
     flex-direction: row;
+    justify-content: space-around;
     align-items: center;
-    justify-content: space-evenly;
+    gap: 3em;
 }
 footer{
     width: 100%;
@@ -29,8 +38,15 @@ footer{
     align-items: center;
     gap: 3em;
 }
-#back{
-    position: fixed;
-    left: 1em;
-    top: 1em;
+.article{
+    height: max-content;
+    width: 30em;
+    display: inline-block;
+}
+.carousel{
+    width: 90%;
+    overflow-x: visible;
+    overflow-y: hidden;
+    white-space: nowrap;
+    justify-content: center;
 }

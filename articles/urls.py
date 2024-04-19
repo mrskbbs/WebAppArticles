@@ -6,5 +6,6 @@ urlpatterns = [
     path('<int:pk>', articleView, name = 'article'),
     path('create', createView, name = 'create'),
     path('<int:pk>/delete', deleteView, name = 'delete'),
+    path('<int:pk>/like', likeView, name = 'like'),
     path('<int:pk>/edit', editView, name = 'edit'),
 ]

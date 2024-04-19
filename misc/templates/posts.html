@@ -1,13 +1,12 @@
-{% for post in posts %}
+{% for article in articles %}
     <div class = "article">
-        <h1><a href = "{% url 'articles:article' post.id %}">{{post.title}}</a></h1>
-        <a href="{% url 'users:profile' post.author.id %}">
-            <p>Author: {{post.author.username}}</p> 
+        <h1><a href = "{% url 'articles:article' article.id %}">{{article.title}}</a></h1>
+        <a href="{% url 'users:profile' article.author.id %}">
+            <p>Author: {{article.author.username}}</p> 
         </a>
-        {% if user == post.author %}
-            <a href = "{% url 'articles:edit' post.id %}"><button>Edit</button></a>
-            <a href = "{% url 'articles:delete' post.id %}"><button>Delete</button></a>
-            </button>
+        {% if user == article.author %}
+            {% include 'edit.html'%}
+            {% include 'delete.html'%}
         {% endif %}
     </div>
 {% endfor %}

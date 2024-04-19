@@ -5,15 +5,6 @@ body > h1{
     margin-block-end: 0em;
     margin-block-start: 0em;
 }
-.carousel{
-    height: max-content;
-    width: 70%;
-    overflow-x: auto;
-    overflow-y: hidden;
-    display: flex;
-    flex-direction: row;
-    gap: 2em;
-}
 #welcome{
     height: 60%;
     width: 100%;
@@ -21,6 +12,10 @@ body > h1{
     flex-direction: column;
     align-items: center;
     justify-content: center;
+}
+#carousels{
+    width: 100%;
+    height: max-content;
 }
 #profile{
     cursor: pointer;

@@ -1,12 +1,11 @@
 {% load static %}
 <link rel = "stylesheet" href = "{% static 'css/universal.css' %}">
-<link rel = "stylesheet" href = "{% static 'css/editor.css' %}">
 
 <!DOCTYPE html>
 <html>
     <body>
         <header>
-            <a id = "back" href = "{% url 'frontpage' %}"> Back </a>
+            {% include 'back.html' %}
             <textarea id = "title">{{article.title}}</textarea>
             <div id = "savebar">
                 {% if article.published %}
@@ -15,21 +14,9 @@
                     <input type = "checkbox" id = "published">
                 {% endif %}
                 <label for = "published">Published</label>
-                <button
-                    hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
-                    hx-post = "{% url 'articles:edit' article.id %}"
-                    hx-vals = 'js:{"packet": constructPacket()}'
-                    hx-trigger = "click"
-                    hx-target= "#status"
+                <button onclick = "sendPacket('{% url 'articles:edit' article.id %}')"
                 >
                     Save
-                </button>
-                <button 
-                    hx-headers = '{"X-CSRFToken": "{{ csrf_token }}"}'
-                    hx-post = "{% url 'articles:delete' article.id %}"
-                    hx-trigger = "click"    
-                >
-                    Delete
                 </button>
                 <p id = "status"></p>
             </div>
@@ -43,5 +30,4 @@
         </div>        
     </body>
     <script src = "{% static 'js/editor.js' %}"></script>
-    <script src = "{% static 'js/htmx.min.js' %}"></script>
 </html>

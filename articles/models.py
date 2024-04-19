@@ -4,11 +4,14 @@ from django.contrib.auth.models import User
 
 class Article(models.Model):
     title = models.CharField(max_length = 64, default = None)
-    author = models.ForeignKey(User, on_delete = models.CASCADE, default = None)
+    author = models.ForeignKey(User, on_delete = models.CASCADE, default = None, related_name = "author")
     published = models.BooleanField(default = False)
     date = models.DateTimeField(default = None)
     content = models.JSONField(default = dict)
-    likes = models.IntegerField(default = 0)
+    users_liked = models.ManyToManyField(User, related_name = "users_liked")
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f"Article: {self.title}\nID: {self.pk}\nDate: {self.date}\nLikes: {self.likes}\n\n"
+    
+    def countLikes(self) -> int:
+        return self.users_liked.count()
