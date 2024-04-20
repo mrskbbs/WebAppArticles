@@ -1,7 +1,7 @@
 <form action = "{% url 'articles:like' article.id %}" method = "post">
     {% csrf_token %}
     <button>
-        {% if liked %}
+        {% if article.id in liked %}
             Unlike
         {% else %}
             Like

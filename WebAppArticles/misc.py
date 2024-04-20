@@ -3,6 +3,10 @@ from django.shortcuts import resolve_url, redirect
 from functools import wraps
 import re 
 
+def getLiked(user: int) -> list[int]:
+    articles = Article.objects.filter(users_liked = user)
+    return [a.id for a in articles]
+
 def htmlSanitize(s: str) -> str:
     HTMLREG: str = "<[^<>]*>"
     

@@ -4,7 +4,7 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
-from WebAppArticles.misc import logout_required
+from WebAppArticles.misc import logout_required, getLiked
 from django.urls import reverse
 
 def profileView(request, id):
@@ -19,7 +19,8 @@ def profileView(request, id):
         
         context = {
             "profile": profile,
-            "likes": total_likes,
+            "profile_likes": total_likes,
+            "liked": getLiked(request.user.id),
             "articles": Article.objects.all().filter(author = profile), 
         }
         

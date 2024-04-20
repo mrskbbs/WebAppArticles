@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST, require_GET
 from django.shortcuts import render, redirect
-from WebAppArticles.misc import htmlBuilder
+from WebAppArticles.misc import htmlBuilder, getLiked
 from django.http import HttpResponse
 from django.utils import timezone
 from .models import Article
@@ -14,8 +14,8 @@ def articleView(request, pk):
     context = {
         "article": article,
         "content": htmlBuilder(False, article.content),
+        "liked": getLiked(request.user.id),
     }
-
     return render(request, 'article.html', context)
 
 
@@ -87,9 +87,10 @@ def editView(request, pk):
 
 
 def frontpageView(request):
-    a = Article.objects.all()
+    article = Article.objects.all()
     context = {
-        "trending": a,
-        "liked": a,
+        "trending": article,
+        "mostliked": article,
+        "liked": getLiked(request.user.id),
     }
     return render(request, 'frontpage.html', context)
