@@ -11,7 +11,7 @@ class Article(models.Model):
     users_liked = models.ManyToManyField(User, related_name = "users_liked")
 
     def __str__(self) -> str:
-        return f"Article: {self.title}\nID: {self.pk}\nDate: {self.date}\nLikes: {self.likes}\n\n"
+        return f"Article: {self.title}\nID: {self.pk}\nDate: {self.date}\nLikes: {self.countLikes()}\n\n"
     
     def countLikes(self) -> int:
         return self.users_liked.count()

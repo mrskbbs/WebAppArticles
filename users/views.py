@@ -15,11 +15,12 @@ def profileView(request, id):
         total_likes = 0
 
         for article in user_articles:
-            total_likes += article.likes 
+            total_likes += article.users_liked.count()
         
         context = {
             "profile": profile,
             "likes": total_likes,
+            "articles": Article.objects.all().filter(author = profile), 
         }
         
         return render(request, "profile.html", context)

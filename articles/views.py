@@ -15,8 +15,6 @@ def articleView(request, pk):
         "article": article,
         "content": htmlBuilder(False, article.content),
     }
-    if request.user:
-        context["liked"] = article.users_liked.contains(request.user)
 
     return render(request, 'article.html', context)
 
@@ -30,11 +28,9 @@ def createView(request):
         published = False,
         date = timezone.now(),
         content = [[{"type": "h1", "content" : "Sample"}]],
-        likes = 0
     )
     article.save()
     return redirect('articles:edit', pk = article.pk)
-
 
 @require_POST
 @user_isauthor(redirect_url = "frontpage")
@@ -43,18 +39,21 @@ def deleteView(request, pk):
     article = Article.objects.get(id = pk)
     author_id = article.author.id
     article.delete()
-    return redirect('users:profile', id = author_id)
+
+    origin = request.META["HTTP_REFERER"]
+    return redirect(origin, id = author_id)
 
 @require_POST
 @login_required(login_url = "users:signup")
 def likeView(request, pk):
     article = Article.objects.get(id = pk)
+    origin = request.META["HTTP_REFERER"]
     if article.users_liked.contains(request.user):
         article.users_liked.remove(request.user)
     else:
         article.users_liked.add(request.user)
 
-    return redirect('articles:article', pk = pk)
+    return redirect(origin, pk = pk)
 
 
 @user_isauthor(redirect_url = "frontpage")

@@ -30,6 +30,7 @@ body{
 }
 #header{
     display: flex;
+    gap: 1em;
     flex-direction: column;
 }
 #article{
@@ -59,4 +60,15 @@ body{
 }
 #header > p{
     grid-area: d;
+}
+#header > div{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 2em;
+}
+#header > div > p{
+    margin-block-end: 0em;
+    margin-block-start: 0em;
 }

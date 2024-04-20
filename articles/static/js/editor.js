@@ -40,14 +40,13 @@ async function sendPacket(url){
             body: packet,
         }
     );
-    let pel = document.querySelector("#status");
+    // let pel = document.querySelector("#status");
     
-    if(postPacket.ok){
-        pel.innerHTML = "Saved succesfully";
-    }else{
-        pel.innerHTML = "There was an error, data isn't saved";
-    }
-
+    // if(postPacket.ok){
+    //     pel.innerHTML = "Saved succesfully";
+    // }else{
+    //     pel.innerHTML = "There was an error, data isn't saved";
+    // }
 }
 
 function getCookie(name){

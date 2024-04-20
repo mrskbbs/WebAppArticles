@@ -1,5 +1,6 @@
 {% load static %}
 <link rel = "stylesheet" href = "{% static 'css/universal.css' %}">
+<link rel = "stylesheet" href = "{% static 'css/profile.css' %}">
 
 <!DOCTYPE html>
 <html>
@@ -20,7 +21,7 @@
 
         <h1>Articles</h1>
         <div id = "articles">
-            {% include 'posts.html' with articles=profile.article_set.all %}
+            {% include 'posts.html' %}
         </div>
 
 

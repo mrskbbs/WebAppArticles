@@ -4,9 +4,16 @@
         <a href="{% url 'users:profile' article.author.id %}">
             <p>Author: {{article.author.username}}</p> 
         </a>
-        {% if user == article.author %}
-            {% include 'edit.html'%}
-            {% include 'delete.html'%}
-        {% endif %}
+        
+        <div>
+            {% if user == article.author %}
+                {% include 'edit.html'%}
+                {% include 'delete.html'%}
+            {% endif %}
+        </div>
+        <div>
+            <p>Likes: {{article.countLikes}}</p>
+            {% include 'like.html' %}
+        </div>
     </div>
 {% endfor %}

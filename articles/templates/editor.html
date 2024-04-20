@@ -1,24 +1,24 @@
 {% load static %}
 <link rel = "stylesheet" href = "{% static 'css/universal.css' %}">
+<link rel = "stylesheet" href = "{% static 'css/editor.css' %}">
+
 
 <!DOCTYPE html>
 <html>
     <body>
         <header>
             {% include 'back.html' %}
-            <textarea id = "title">{{article.title}}</textarea>
+            <input id = "title" value = "{{article.title}}"></input>
             <div id = "savebar">
-                {% if article.published %}
-                    <input type = "checkbox" id = "published" checked>
-                {% else %}
-                    <input type = "checkbox" id = "published">
-                {% endif %}
-                <label for = "published">Published</label>
-                <button onclick = "sendPacket('{% url 'articles:edit' article.id %}')"
-                >
-                    Save
-                </button>
-                <p id = "status"></p>
+                <div>
+                    {% if article.published %}
+                        <input type = "checkbox" id = "published" checked>
+                    {% else %}
+                        <input type = "checkbox" id = "published">
+                    {% endif %}
+                    <label for = "published">Published</label>
+                </div>
+                <button onclick = "sendPacket('{% url 'articles:edit' article.id %}')">Save</button>
             </div>
         </header>
         <div id = "content">
